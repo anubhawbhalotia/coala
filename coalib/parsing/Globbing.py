@@ -11,7 +11,6 @@ def _end_of_set_index(string, start_index):
     """
     Returns the position of the appropriate closing bracket for a glob set in
     string.
-
     :param string:      Glob string with wildcards
     :param start_index: Index at which the set starts, meaning the position
                         right behind the opening bracket
@@ -34,7 +33,6 @@ def _end_of_set_index(string, start_index):
 def glob_escape(input_string):
     """
     Escapes the given string with ``[c]`` pattern. Examples:
-
     >>> from coalib.parsing.Globbing import glob_escape
     >>> glob_escape('test (1)')
     'test [(]1[)]'
@@ -42,7 +40,6 @@ def glob_escape(input_string):
     'test folder[?]'
     >>> glob_escape('test*folder')
     'test[*]folder'
-
     :param input_string: String that is to be escaped with ``[ ]``.
     :return:             Escaped string in which all the special glob characters
                          ``()[]|?*`` are escaped.
@@ -55,7 +52,6 @@ def _position_is_bracketed(string, position):
     """
     Tests whether the char at string[position] is inside a valid pair of
     brackets (and therefore loses its special meaning)
-
     :param string:   Glob string with wildcards
     :param position: Position of a char in string
     :return:         Whether or not the char is inside a valid set of brackets
@@ -82,7 +78,6 @@ def _boundary_of_alternatives_indices(pattern):
     """
     Determines the location of a set of alternatives in a glob pattern.
     Alternatives are defined by a matching set of non-bracketed parentheses.
-
     :param pattern: Glob pattern with wildcards.
     :return:        Indices of the innermost set of matching non-bracketed
                     parentheses in a tuple. The Index of a missing parenthesis
@@ -111,7 +106,6 @@ def _iter_choices(pattern):
     """
     Iterate through each choice of an alternative. Splits pattern on '|'s if
     they are not bracketed.
-
     :param pattern: String of choices separated by '|'s
     :return:        Iterator that yields parts of string separated by
                     non-bracketed '|'s
@@ -128,9 +122,8 @@ def _iter_choices(pattern):
 @yield_once
 def _iter_alternatives(pattern):
     """
-    Iterates through all glob patterns that can be obtained by combination of
+    Iterates through all glob patterns that can be obtaines by combination of
     all choices for each alternative
-
     :param pattern: Glob pattern with wildcards
     :return:        Iterator that yields all glob patterns without alternatives
                     that can be created from the given pattern containing them.
@@ -154,7 +147,6 @@ def _iter_alternatives(pattern):
 def translate(pattern):
     """
     Translates a pattern into a regular expression.
-
     :param pattern: Glob pattern with wildcards
     :return:        Regular expression with the same meaning
     """
@@ -197,17 +189,12 @@ def translate(pattern):
 def fnmatch(name, globs):
     """
     Tests whether name matches one of the given globs.
-
     An empty ``globs`` list always returns true.
-
     An empty glob in ``globs`` list will match nothing and is ignored.
-
     :param name:  File or directory name
     :param globs: Glob string with wildcards or list of globs
     :return:      Boolean: Whether or not name is matched by glob
-
     Glob Syntax:
-
     -  '[seq]':         Matches any character in seq. Cannot be empty. Any
                         special character looses its special meaning in a set.
     -  '[!seq]':        Matches any character not in seq. Cannot be empty. Any
@@ -240,7 +227,6 @@ def _compile_pattern(pattern):
 def _absolute_flat_glob(pattern):
     """
     Glob function for a pattern that do not contain wildcards.
-
     :pattern: File or directory path
     :return:  Iterator that yields at most one valid file or dir name
     """
@@ -259,7 +245,6 @@ def _absolute_flat_glob(pattern):
 def _iter_relative_dirs(dirname):
     """
     Recursively iterates subdirectories of all levels from dirname
-
     :param dirname: Directory name
     :return:        Iterator that yields files and directory from the given dir
                     and all it's (recursive) subdirectories
@@ -280,7 +265,6 @@ def _iter_relative_dirs(dirname):
 def relative_wildcard_glob(dirname, pattern):
     """
     Non-recursive glob for one directory. Accepts wildcards.
-
     :param dirname: Directory name
     :param pattern: Glob pattern with wildcards
     :return:        List of files in the dir of dirname that match the pattern
@@ -306,7 +290,6 @@ def relative_wildcard_glob(dirname, pattern):
 def relative_flat_glob(dirname, basename):
     """
     Non-recursive glob for one directory. Does not accept wildcards.
-
     :param dirname:  Directory name
     :param basename: Basename of a file in dir of dirname
     :return:         List containing Basename if the file exists
@@ -320,7 +303,6 @@ def relative_recursive_glob(dirname, pattern):
     """
     Recursive Glob for one directory and all its (nested) subdirectories.
     Accepts only '**' as pattern.
-
     :param dirname: Directory name
     :param pattern: The recursive wildcard '**'
     :return:        Iterator that yields all the (nested) subdirectories of the
@@ -339,7 +321,6 @@ wildcard_check_pattern = re.compile('([*?[])')
 def has_wildcard(pattern):
     """
     Checks whether pattern has any wildcards.
-
     :param pattern: Glob pattern that may contain wildcards
     :return:        Boolean: Whether or not there are wildcards in pattern
     """
@@ -383,7 +364,6 @@ def iglob(pattern):
     """
     Iterates all filesystem paths that get matched by the glob pattern.
     Syntax is equal to that of fnmatch.
-
     :param pattern: Glob pattern with wildcards
     :return:        Iterator that yields all file names that match pattern
     """
@@ -403,7 +383,6 @@ def glob(pattern):
     """
     Iterates all filesystem paths that get matched by the glob pattern.
     Syntax is equal to that of fnmatch.
-
     :param pattern: Glob pattern with wildcards
     :return:        List of all file names that match pattern
     """
